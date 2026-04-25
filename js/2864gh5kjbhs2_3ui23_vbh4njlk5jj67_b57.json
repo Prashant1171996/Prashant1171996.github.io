@@ -1,14 +1,17 @@
 [
   {
     "url": "",
-    "isOk": false
+    "isOk": false,
+    "blocked": true
   },
   {
     "url": "https://prashant1171996.github.io/",
-    "isOk": true
+    "isOk": true,
+    "blocked": false
   },
   {
     "url": "https://github.io/",
-    "isOk": false
+    "isOk": false,
+    "blocked": true
   }
 ]
