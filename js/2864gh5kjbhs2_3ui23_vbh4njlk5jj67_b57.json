@@ -2,7 +2,7 @@
   {
     "url": "",
     "isOk": false,
-    "blocked": true
+    "blocked": false
   },
   {
     "url": "https://prashant1171996.github.io/",
@@ -12,6 +12,6 @@
   {
     "url": "https://github.io/",
     "isOk": false,
-    "blocked": true
+    "blocked": false
   }
 ]
