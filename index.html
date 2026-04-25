@@ -91,7 +91,7 @@
             const host = window.location.hostname;
 
             return data.some(item =>
-                host.includes(item.url) && item.isOk === false
+                host === item.url && item.isOk === false
             );
         }
 
@@ -102,7 +102,7 @@
 
                 const host = window.location.hostname;
                 const chk = config.some(item =>
-                    host.includes(item.url) && item.blocked === true
+                    host === item.url && item.blocked === true
                 );
                 if (chk) {
                     document.documentElement.innerHTML = '';
